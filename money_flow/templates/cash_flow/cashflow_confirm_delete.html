@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление записи{% endblock %}
+
+{% block header %}Удаление записи{% endblock %}
+
+{% block header_buttons %}
+    <a href="{% url 'cashflow_list' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Назад к списку
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="alert alert-danger">
+                <h4 class="alert-heading">Подтверждение удаления</h4>
+                <p>Вы уверены, что хотите удалить следующую запись?</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Информация о записи</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Дата:</dt>
+                        <dd class="col-sm-9">{{ object.date_created|date:"d.m.Y" }}</dd>
+                        
+                        <dt class="col-sm-3">Статус:</dt>
+                        <dd class="col-sm-9">{{ object.status.name }}</dd>
+                        
+                        <dt class="col-sm-3">Тип:</dt>
+                        <dd class="col-sm-9">{{ object.type.name }}</dd>
+                        
+                        <dt class="col-sm-3">Категория:</dt>
+                        <dd class="col-sm-9">{{ object.category.name }}</dd>
+                        
+                        <dt class="col-sm-3">Подкатегория:</dt>
+                        <dd class="col-sm-9">{{ object.subcategory.name }}</dd>
+                        
+                        <dt class="col-sm-3">Сумма:</dt>
+                        <dd class="col-sm-9">{{ object.amount }} ₽</dd>
+                        
+                        {% if object.comment %}
+                            <dt class="col-sm-3">Комментарий:</dt>
+                            <dd class="col-sm-9">{{ object.comment }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'cashflow_list' %}" class="btn btn-secondary me-md-2">Отмена</a>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

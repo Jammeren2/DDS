@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление категории{% endblock %}
+
+{% block header %}Удаление категории{% endblock %}
+
+{% block header_buttons %}
+    <a href="{% url 'category_list' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Назад к списку
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="alert alert-danger">
+                <h4 class="alert-heading">Подтверждение удаления</h4>
+                <p>Вы уверены, что хотите удалить категорию "{{ object.name }}" ({{ object.type.name }})?</p>
+                <hr>
+                <p class="mb-0">Внимание! При удалении категории будут также удалены все связанные с ней подкатегории. Это действие нельзя будет отменить.</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'category_list' %}" class="btn btn-secondary me-md-2">Отмена</a>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
